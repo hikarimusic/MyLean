@@ -114,3 +114,10 @@ example : (((p → q) → p) → p) :=
   fun h : (p → q) → p => (em p).elim id (fun hnp : ¬p => 
     (em q).elim (fun hq : q => h fun hp : p => hq) 
     (fun hnq : ¬q => absurd (h fun hp : p => absurd hp hnp) hnp))
+
+
+-- iff not self (not classical)
+example : ¬(p ↔ ¬p) :=
+  fun h : p ↔ ¬p => 
+  have hnp : ¬p := fun hp : p => h.mp hp hp
+  hnp (h.mpr hnp) 
